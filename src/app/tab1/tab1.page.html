@@ -1,17 +1,66 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      {{ locations.length }} Peak District Locations
     </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [debounce]="500"
+                   [(ngModel)]="searchText"
+                   show-cancel-button="focus"
+                   animated="true"
+                   placeholder="Search for a Location">
+    </ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="all">
+      <ion-segment-button value="all">All</ion-segment-button>
+      <ion-segment-button value="favorites">Favorites</ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<app-loading *ngIf="isLoading"></app-loading>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content *ngIf="!isLoading" [fullscreen]="true" class="ion-padding">
+
+  <h3>Locations</h3>
+
+  <!--  <ion-list>-->
+  <!--    <ion-item *ngFor="let location of locations | filterlocations: searchText;">-->
+  <!--      <ion-label>{{ location.name }}</ion-label>-->
+  <!--    </ion-item>-->
+  <!--  </ion-list>-->
+
+
+  <ion-accordion-group expand="inset">
+    <ng-container *ngFor="let location of locations | filterlocations: searchText; index as i;">
+      <ion-accordion value="accordion-{{i}}">
+
+        <ion-item slot="header" color="light">
+          <ion-thumbnail slot="start">
+            <img alt="" loading="lazy" src="/assets/img/popup/{{ location.image }}">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ location.name }}</h2>
+            <p>{{ location.county }}</p>
+          </ion-label>
+        </ion-item>
+
+        <div class="ion-padding" slot="content">
+          <p [innerHTML]="location.content | sanitizeHtml"></p>
+          <!--          <small>{{ (location.content.length > 30) ? (location.content | slice:0:60) + '...' : (location.content) }}</small>-->
+          <img alt="" style="width: 100%;" src="/assets/img/popup/{{ location.image }}">
+        </div>
+
+      </ion-accordion>
+    </ng-container>
+  </ion-accordion-group>
+
+
+  <!--&lt;!&ndash;  <ion-infinite-scroll>&ndash;&gt;-->
+  <!--&lt;!&ndash;    <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>&ndash;&gt;-->
+  <!--&lt;!&ndash;  </ion-infinite-scroll>&ndash;&gt;-->
+
+  <!--  <ion-button expand="block" (click)="scrollToTop()">Scroll to Top</ion-button>-->
 </ion-content>
