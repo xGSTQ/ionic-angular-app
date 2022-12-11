@@ -5,7 +5,7 @@ export interface Location {
   rank: number,
   difficulty: number;
   season: string,
-  timeofyear: string,
+  bestTime: string,
   image: string;
   imagecredit: string;
   content: string;

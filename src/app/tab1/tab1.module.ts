@@ -10,6 +10,9 @@ import {SanitizeHtmlPipe} from '../pipes/sanitizeHtml.pipe';
 import {FilterLocationsPipe} from '../pipes/filter-locations.pipe';
 import {LoadingModule} from '../loading/loading.module';
 
+import { FilterComponent } from '../filter/filter.component';
+import {FilterPipe} from '../pipes/filter.pipe';
+
 
 @NgModule({
   imports: [
@@ -23,7 +26,9 @@ import {LoadingModule} from '../loading/loading.module';
   declarations: [
     Tab1Page,
     SanitizeHtmlPipe,
-    FilterLocationsPipe
+    FilterLocationsPipe,
+    FilterComponent,
+    FilterPipe
   ]
 })
 export class Tab1PageModule {

@@ -1,0 +1,57 @@
+<h3>Filter Locations</h3>
+
+<ion-grid>
+  <ion-row>
+    <ion-col size="12">
+      <label>Filter by County:</label>
+    </ion-col>
+    <ion-col size="12">
+      <select [(ngModel)]="selectedCounty">
+        <option class="placeholder" disabled selected value="undefined">Select an Option</option>
+        <option value="">All</option>
+        <option *ngFor="let option of countyOptions" [value]="option">{{ option }}</option>
+      </select>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col size="12">
+      <label>Filter by Best Time of Day:</label>
+    </ion-col>
+    <ion-col size="12">
+      <select [(ngModel)]="selectedBestTime">
+        <option class="placeholder" disabled selected value="undefined">Select an Option</option>
+        <option value="">All</option>
+        <option *ngFor="let option of bestTimeOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <label>Filter by Season: </label>
+    </ion-col>
+    <ion-col size="12">
+      <select [(ngModel)]="selectedSeason">
+        <option class="placeholder" disabled selected value="undefined">Select an Option</option>
+        <option value="">All</option>
+        <option *ngFor="let option of seasonOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>
+
+<ion-button (click)="resetAll()">Reset All</ion-button>
+
+<ul>
+  <li *ngFor="let location of locations | filter: selectedValues">
+    {{ location.name }} | {{ location.county }} - {{ location.bestTime }} -
+    {{ location.season }}
+  </li>
+</ul>

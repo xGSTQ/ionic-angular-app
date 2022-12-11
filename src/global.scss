@@ -25,21 +25,7 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
-//ion-content::part(background) {
-//	background: #1F1F1F;
-//}
-//
-//ion-content::part(scroll) {
-//	color: #fff;
-//}
 
 
-div[slot='content'] {
-	background: rgba(var(--ion-color-rose-rgb), 0.25)
-}
-
-ion-thumbnail {
-	--border-radius: 6px;
-}
 
 

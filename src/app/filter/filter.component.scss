@@ -1,0 +1,11 @@
+select > .placeholder {
+	display: none;
+}
+
+ion-grid {
+	--ion-grid-padding: 0;
+}
+
+ion-col select {
+	margin-bottom: 12px;
+}
