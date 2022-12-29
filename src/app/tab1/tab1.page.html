@@ -1,67 +1,22 @@
 <!-- Flyout Filter Menu -->
 <ion-menu [type]="menuType" content-id="main-content">
+
   <ion-header [translucent]="true">
     <ion-toolbar>
       <ion-title>Filter Locations</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-content class="ion-padding">
-
-
     <ion-menu-toggle>
       <ion-button>Close the menu</ion-button>
     </ion-menu-toggle>
 
-<!--    <ion-card>-->
-<!--      <ion-card-header>-->
-<!--        <ion-card-title>{{ locations.length }} Locations</ion-card-title>-->
-<!--        <ion-card-subtitle>Displaying  {{ selectedCounty }} locations</ion-card-subtitle>-->
-<!--      </ion-card-header>-->
-<!--    </ion-card>-->
-
-    <app-filter></app-filter>
-
-
-    <!-- Filter by County -->
-<!--    <ion-list>-->
-<!--      <ion-item>-->
-<!--        <ion-select interface="action-sheet"-->
-<!--                    placeholder="Filter by County"-->
-<!--                    (ionChange)="handleChangeCounty($event)">-->
-<!--          &lt;!&ndash;                      (ionCancel)="pushLog('ionCancel fired')"&ndash;&gt;-->
-<!--          &lt;!&ndash;                      (ionDismiss)="pushLog('ionDismiss fired')"&ndash;&gt;-->
-<!--          <ion-select-option value="all">All Counties</ion-select-option>-->
-<!--          <ion-select-option value="Cheshire">Cheshire</ion-select-option>-->
-<!--          <ion-select-option value="Staffordshire">Staffordshire</ion-select-option>-->
-<!--          <ion-select-option value="Derbyshire">Derbyshire</ion-select-option>-->
-<!--          <ion-select-option value="Greater Manchester">Greater Manchester</ion-select-option>-->
-<!--          <ion-select-option value="South Yorkshire">South Yorkshire</ion-select-option>-->
-<!--        </ion-select>-->
-<!--      </ion-item>-->
-<!--    </ion-list>-->
-
-    <!-- Filter by Season -->
-<!--    <ion-list>-->
-<!--      <ion-item>-->
-<!--        <ion-select interface="action-sheet"-->
-<!--                    placeholder="Filter by Season"-->
-<!--                    (ionChange)="handleChangeSeason($event)"-->
-<!--                    (ionCancel)="pushLog('ionCancel fired')"-->
-<!--                    (ionDismiss)="pushLog('ionDismiss fired')">-->
-<!--          <ion-select-option value="Any">Any Seasons</ion-select-option>-->
-<!--          <ion-select-option value="Autumn">Autumn</ion-select-option>-->
-<!--          <ion-select-option value="Winter">Winter</ion-select-option>-->
-<!--          <ion-select-option value="Spring">Spring</ion-select-option>-->
-<!--        </ion-select>-->
-<!--      </ion-item>-->
-<!--    </ion-list>-->
-
-<!--    <div class="ion-padding">-->
-<!--      <p *ngFor="let log of logs">{{ log }}</p>-->
-<!--    </div>-->
-
-
+    <app-filter [locations]="locations"
+                (itemsChange)="locations = $event">
+    </app-filter>
   </ion-content>
+
 </ion-menu>
 
 
@@ -96,16 +51,8 @@
       </ion-card-header>
     </ion-card>
 
-<!--    <ul>-->
-<!--      <li *ngFor="let location of locations | filter: selectedValues">-->
-<!--        {{ location.name }} | {{ location.county }} - {{ location.bestTime }} - -->
-<!--        {{ location.season }}-->
-<!--      </li>-->
-<!--    </ul>-->
-
-
     <ion-accordion-group expand="inset">
-      <ng-container *ngFor="let location of locations | filterlocations: searchText; index as i;">
+      <ng-container *ngFor="let location of (locations | filterlocations: searchText); index as i;">
         <ion-accordion value="accordion-{{i}}">
 
           <ion-item slot="header" color="light">
@@ -132,7 +79,7 @@
               </ion-row>
               <ion-row>
                 <ion-col>Best time of year</ion-col>
-                <ion-col>{{ location.timeofyear }}</ion-col>
+                <ion-col>{{ location.bestTime }}</ion-col>
               </ion-row>
               <ion-row>
                 <ion-col>Best season</ion-col>
