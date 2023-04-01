@@ -14,6 +14,8 @@ export class FilterComponent implements OnInit {
   selectedBestTime: string;
   selectedSeason: string;
 
+  public resultExact = [];
+
   countyOptions = ['Staffordshire', 'Derbyshire', 'Cheshire', 'Greater Manchester', 'West Yorkshire', 'South Yorkshire'];
   bestTimeOptions = ['Sunrise', 'Sunset', 'Midday'];
   seasonOptions = ['Any', 'Spring', 'Autumn', 'Winter'];
@@ -61,18 +63,19 @@ export class FilterComponent implements OnInit {
       valuesExact.splice(2,1, 'Sunrise', 'Sunset', 'Midday')
     }
 
-    // console.log(this.locations)
-    // console.log(keysExact)
-    // console.log(valuesExact)
-
     const resultExact = this.locations.filter((item) =>
       keysExact.every( (key) =>
         valuesExact.some((val) => item[key].includes(val))
       )
     );
 
-    // console.log(resultExact)
 
+    console.log(resultExact);
+    console.log(this.locations)
+    this.resultExact = resultExact;
+    this.locations = resultExact;
+
+    // emit
     this.itemsChange.emit(resultExact);
   }
 
@@ -85,6 +88,5 @@ export class FilterComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

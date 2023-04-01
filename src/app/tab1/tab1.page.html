@@ -1,28 +1,28 @@
 <!-- Flyout Filter Menu -->
-<ion-menu [type]="menuType" content-id="main-content">
+<!--<ion-menu [type]="menuType" content-id="main-content-one">-->
 
-  <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-title>Filter Locations</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<!--  <ion-header [translucent]="true">-->
+<!--    <ion-toolbar>-->
+<!--      <ion-title>Filter Locations</ion-title>-->
+<!--    </ion-toolbar>-->
+<!--  </ion-header>-->
 
-  <ion-content class="ion-padding">
-    <ion-menu-toggle>
-      <ion-button>Close the menu</ion-button>
-    </ion-menu-toggle>
+<!--  <ion-content class="ion-padding">-->
+<!--    <ion-menu-toggle>-->
+<!--      <ion-button>Close the menu</ion-button>-->
+<!--    </ion-menu-toggle>-->
 
-    <app-filter [locations]="locations"
-                (itemsChange)="locations = $event">
-    </app-filter>
-  </ion-content>
+<!--    <app-filter [locations]="locations"-->
+<!--                (itemsChange)="locations = $event">-->
+<!--    </app-filter>-->
+<!--  </ion-content>-->
 
-</ion-menu>
+<!--</ion-menu>-->
 
 
 <!-- Main Page Content -->
-<section class="ion-page" id="main-content">
-  <ion-header [translucent]="true">
+<section class="ion-page" id="main-content-one">
+  <ion-header [translucent]="false">
     <ion-toolbar>
       <ion-title>101 Peak District Locations</ion-title>
     </ion-toolbar>
@@ -40,9 +40,37 @@
 
   <ion-content *ngIf="!isLoading" [fullscreen]="true" class="ion-padding">
 
-    <ion-menu-toggle>
-      <ion-button>Filter Locations</ion-button>
-    </ion-menu-toggle>
+
+<!--      <ion-button>Filter Locations</ion-button>-->
+    <ion-button id="open-modal" expand="block">Filter</ion-button>
+    <ion-button>Reset</ion-button>
+
+    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel()">Cancel</ion-button>
+            </ion-buttons>
+            <ion-title>Filter Locations</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-content class="ion-padding">
+          <ion-item>
+<!--            <ion-label position="stacked">Enter your name</ion-label>-->
+<!--            <ion-input type="text" placeholder="Your name" [(ngModel)]="name"></ion-input>-->
+                <app-filter [locations]="locations"
+                            (itemsChange)="locations = $event">
+                </app-filter>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
 
     <ion-card>
       <ion-card-header>

@@ -1,6 +1,5 @@
-<h3>Filter Locations</h3>
-
 <ion-grid>
+  {{ locations.length }} Total Locations
   <ion-row>
     <ion-col size="12">
       <label>Filter by County:</label>
@@ -43,10 +42,10 @@
 
 </ion-grid>
 
-<ion-menu-toggle>
-  <ion-button (click)="apply()">Filter</ion-button>
-</ion-menu-toggle>
+<!--<ion-menu-toggle>-->
+  <ion-button (click)="apply()">Confirm Test</ion-button>
+<!--</ion-menu-toggle>-->
 
-<ion-menu-toggle>
+
   <ion-button (click)="resetAll()">Reset All</ion-button>
-</ion-menu-toggle>
+

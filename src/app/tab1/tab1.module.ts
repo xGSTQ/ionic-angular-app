@@ -10,8 +10,8 @@ import {SanitizeHtmlPipe} from '../pipes/sanitizeHtml.pipe';
 import {FilterLocationsPipe} from '../pipes/filter-locations.pipe';
 import {LoadingModule} from '../loading/loading.module';
 
-import { FilterComponent } from '../filter/filter.component';
 import {FilterPipe} from '../pipes/filter.pipe';
+import {FilterModule} from '../filter/filter.module';
 
 
 @NgModule({
@@ -21,13 +21,13 @@ import {FilterPipe} from '../pipes/filter.pipe';
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
-    LoadingModule
+    LoadingModule,
+    FilterModule
   ],
   declarations: [
     Tab1Page,
     SanitizeHtmlPipe,
     FilterLocationsPipe,
-    FilterComponent,
     FilterPipe
   ]
 })
