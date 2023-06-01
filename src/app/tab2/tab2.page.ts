@@ -1,8 +1,10 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {IonContent} from '@ionic/angular';
-import { IonModal } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core/components';
+import {IonModal} from '@ionic/angular';
+import {OverlayEventDetail} from '@ionic/core/components';
 
+import {LocationFilterService} from '../services/location-filter.service';
+import {Location} from '../../assets/location';
 import {LOCATIONS} from '../../assets/locations';
 
 @Component({
@@ -13,18 +15,24 @@ import {LOCATIONS} from '../../assets/locations';
 export class Tab2Page implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
   @ViewChild(IonContent) content: IonContent;
-  menuType: string = 'push';
   locations = LOCATIONS;
   public searchText = '';
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   name: string;
 
-  constructor() {
+  constructor(private filterService: LocationFilterService) {}
 
+  filteredLocations: Location[];
+
+  handleFilterApplied(filteredLocations: Location[]) {
+    this.filteredLocations = filteredLocations;
+    console.log('Filtered Locations:', filteredLocations);
   }
 
   ngOnInit() {
+    this.filteredLocations = this.filterService.getFilteredLocations();
+    console.log(this.filteredLocations)
   }
 
   cancel() {
@@ -41,5 +49,4 @@ export class Tab2Page implements OnInit {
       this.message = `Hello, ${ev.detail.data}!`;
     }
   }
-
 }

@@ -61,9 +61,11 @@
           <ion-item>
             <!--            <ion-label position="stacked">Enter your name</ion-label>-->
             <!--            <ion-input type="text" placeholder="Your name" [(ngModel)]="name"></ion-input>-->
-            <app-filter [locations]="locations"
-                        (itemsChange)="locations = $event">
-            </app-filter>
+<!--            <app-filter [locations]="locations"-->
+<!--                        (itemsChange)="locations = $event">-->
+<!--            </app-filter>-->
+            <app-filter (filterApplied)="handleFilterApplied($event)"></app-filter>
+
           </ion-item>
         </ion-content>
       </ng-template>

@@ -41,7 +41,7 @@
   <ion-content *ngIf="!isLoading" [fullscreen]="true" class="ion-padding">
 
 
-<!--      <ion-button>Filter Locations</ion-button>-->
+    <!--      <ion-button>Filter Locations</ion-button>-->
     <ion-button id="open-modal" expand="block">Filter</ion-button>
     <ion-button>Reset</ion-button>
 
@@ -61,11 +61,13 @@
 
         <ion-content class="ion-padding">
           <ion-item>
-<!--            <ion-label position="stacked">Enter your name</ion-label>-->
-<!--            <ion-input type="text" placeholder="Your name" [(ngModel)]="name"></ion-input>-->
-                <app-filter [locations]="locations"
-                            (itemsChange)="locations = $event">
-                </app-filter>
+            <!--            <ion-label position="stacked">Enter your name</ion-label>-->
+            <!--            <ion-input type="text" placeholder="Your name" [(ngModel)]="name"></ion-input>-->
+            <!--                <app-filter [locations]="locations"-->
+            <!--                            (itemsChange)="locations = $event">-->
+            <!--                </app-filter>-->
+            <app-filter (filterApplied)="handleFilterApplied($event)"></app-filter>
+
           </ion-item>
         </ion-content>
       </ng-template>
@@ -74,18 +76,64 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ locations.length }} Total Locations</ion-card-title>
-        <ion-card-subtitle>Displaying  {{ selectedCounty }} locations</ion-card-subtitle>
+        <ion-card-title>{{ filteredLocations.length }} Total Locations</ion-card-title>
+        <ion-card-subtitle>Displaying {{ filteredLocations.length }} locations</ion-card-subtitle>
       </ion-card-header>
     </ion-card>
 
+
+    <!--    <ion-accordion-group expand="inset">-->
+    <!--      <ng-container *ngFor="let location of (locations | filterlocations: searchText); index as i;">-->
+    <!--        <ion-accordion value="accordion-{{i}}">-->
+
+    <!--          <ion-item slot="header" color="light">-->
+    <!--            <ion-thumbnail slot="start">-->
+    <!--              <img alt="" role="presentation" loading="lazy" src="/assets/img/popup/{{ location.image }}">-->
+    <!--            </ion-thumbnail>-->
+    <!--            <ion-label>-->
+    <!--              <h2>{{ location.name }}</h2>-->
+    <!--              <p>{{ location.county }}</p>-->
+    <!--            </ion-label>-->
+    <!--          </ion-item>-->
+
+    <!--          <div class="ion-padding" slot="content">-->
+    <!--            <p [innerHTML]="location.content | sanitizeHtml"></p>-->
+
+    <!--            <ion-grid>-->
+    <!--              <ion-row>-->
+    <!--                <ion-col>County</ion-col>-->
+    <!--                <ion-col>{{ location.county }}</ion-col>-->
+    <!--              </ion-row>-->
+    <!--              <ion-row>-->
+    <!--                <ion-col>Difficulty rating</ion-col>-->
+    <!--                <ion-col>{{ location.difficulty }}</ion-col>-->
+    <!--              </ion-row>-->
+    <!--              <ion-row>-->
+    <!--                <ion-col>Best time of year</ion-col>-->
+    <!--                <ion-col>{{ location.bestTime }}</ion-col>-->
+    <!--              </ion-row>-->
+    <!--              <ion-row>-->
+    <!--                <ion-col>Best season</ion-col>-->
+    <!--                <ion-col>{{ location.season }}</ion-col>-->
+    <!--              </ion-row>-->
+    <!--            </ion-grid>-->
+
+    <!--            &lt;!&ndash;          <small>{{ (location.content.length > 30) ? (location.content | slice:0:60) + '...' : (location.content) }}</small>&ndash;&gt;-->
+    <!--            <img loading="lazy" alt="{{ location.name }}" style="width: 100%;"-->
+    <!--                 src="/assets/img/popup/{{ location.image }}">-->
+    <!--          </div>-->
+
+    <!--        </ion-accordion>-->
+    <!--      </ng-container>-->
+    <!--    </ion-accordion-group>-->
+
     <ion-accordion-group expand="inset">
-      <ng-container *ngFor="let location of (locations | filterlocations: searchText); index as i;">
+      <ng-container *ngFor="let location of (filteredLocations | filterlocations: searchText); index as i;">
         <ion-accordion value="accordion-{{i}}">
 
           <ion-item slot="header" color="light">
             <ion-thumbnail slot="start">
-              <img alt="" role="presentation" loading="lazy" src="/assets/img/popup/{{ location.image }}">
+              <img alt="" role="presentation" loading="lazy" [src]="'/assets/img/popup/' + location.image">
             </ion-thumbnail>
             <ion-label>
               <h2>{{ location.name }}</h2>
@@ -115,14 +163,14 @@
               </ion-row>
             </ion-grid>
 
-            <!--          <small>{{ (location.content.length > 30) ? (location.content | slice:0:60) + '...' : (location.content) }}</small>-->
             <img loading="lazy" alt="{{ location.name }}" style="width: 100%;"
-                 src="/assets/img/popup/{{ location.image }}">
+                 [src]="'/assets/img/popup/' + location.image">
           </div>
 
         </ion-accordion>
       </ng-container>
     </ion-accordion-group>
+
 
   </ion-content>
 </section>

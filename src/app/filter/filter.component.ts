@@ -1,5 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LOCATIONS} from '../../assets/locations';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Location } from '../../assets/location';
+import { Filter } from './filter.model';
+import { LOCATIONS } from "../../assets/locations";
 
 @Component({
   selector: 'app-filter',
@@ -7,86 +9,34 @@ import {LOCATIONS} from '../../assets/locations';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
-  @Input() locations: Array<any>;
-  @Output() itemsChange = new EventEmitter<any[]>();
+  @Output() filterApplied = new EventEmitter<Location[]>();
 
-  selectedCounty: string;
-  selectedBestTime: string;
-  selectedSeason: string;
+  filter: Filter;
+  filteredLocations: Location[] = LOCATIONS;
 
-  public resultExact = [];
+  constructor() {}
 
-  countyOptions = ['Staffordshire', 'Derbyshire', 'Cheshire', 'Greater Manchester', 'West Yorkshire', 'South Yorkshire'];
-  bestTimeOptions = ['Sunrise', 'Sunset', 'Midday'];
-  seasonOptions = ['Any', 'Spring', 'Autumn', 'Winter'];
-
-  get selectedValues() {
-    return {
-      county: this.selectedCounty,
-      bestTime: this.selectedBestTime,
-      season: this.selectedSeason,
+  ngOnInit() {
+    this.filter = {
+      difficulty: null,
+      season: null,
+      bestTime: null,
+      county: null
     };
-
   }
 
-  apply() {
-    this.locations = LOCATIONS;
+  filterLocations() {
+    this.filteredLocations = LOCATIONS.filter((location) => {
+      return (
+        (!this.filter.difficulty || location.difficulty === Number(this.filter.difficulty)) &&
+        (!this.filter.season || location.season === this.filter.season) &&
+        (!this.filter.bestTime || location.bestTime === this.filter.bestTime) &&
+        (!this.filter.county || location.county === this.filter.county)
+      );
+    });
 
-    // const keysExact  = ['county', 'season', 'bestTime'];
-    // const valuesExact  = ['Staffordshire', 'Spring', 'Sunrise']; // Grindon Moor
-
-    // Return the keys of the dropdowns selected for the filter
-    let keysExact = [];
-    if (this.selectedValues.county) {
-      keysExact.push('county');
-    }
-    if(this.selectedValues.season) {
-      keysExact.push('season');
-    }
-    if(this.selectedValues.bestTime) {
-      keysExact.push('bestTime');
-    }
-
-    // Return the values from the dropdowns
-    const valuesExact  = [this.selectedValues.county, this.selectedValues.season, this.selectedValues.bestTime];
-
-    // If selecting 'All' in the dropdowns
-    if(this.selectedValues.county === 'All') {
-      valuesExact.splice(0,1,'Staffordshire', 'Derbyshire', 'Cheshire', 'Greater Manchester', 'West Yorkshire', 'South Yorkshire');
-    }
-
-    if(this.selectedValues.season === 'All') {
-      valuesExact.splice(1,1, 'Any', 'Spring', 'Autumn', 'Winter')
-    }
-
-    if(this.selectedValues.bestTime === 'All') {
-      valuesExact.splice(2,1, 'Sunrise', 'Sunset', 'Midday')
-    }
-
-    const resultExact = this.locations.filter((item) =>
-      keysExact.every( (key) =>
-        valuesExact.some((val) => item[key].includes(val))
-      )
-    );
-
-
-    console.log(resultExact);
-    console.log(this.locations)
-    this.resultExact = resultExact;
-    this.locations = resultExact;
-
-    // emit
-    this.itemsChange.emit(resultExact);
+    this.filterApplied.emit(this.filteredLocations);
+    console.log(this.filteredLocations.length);
+    console.table(this.filteredLocations);
   }
-
-  resetAll() {
-    this.selectedCounty = null;
-    this.selectedBestTime = null;
-    this.selectedSeason = null;
-    this.locations = LOCATIONS;
-    this.itemsChange.emit(this.locations);
-  }
-
-
-  ngOnInit() {}
 }

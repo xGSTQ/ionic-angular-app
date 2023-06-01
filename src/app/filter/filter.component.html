@@ -1,51 +1,51 @@
-<ion-grid>
-  {{ locations.length }} Total Locations
-  <ion-row>
-    <ion-col size="12">
-      <label>Filter by County:</label>
-    </ion-col>
-    <ion-col size="12">
-      <select [(ngModel)]="selectedCounty">
-        <option class="placeholder" disabled selected value="undefined">Select an Option</option>
-        <option value="All">All</option>
-        <option *ngFor="let option of countyOptions" [value]="option">{{ option }}</option>
-      </select>
-    </ion-col>
-  </ion-row>
+<form (ngSubmit)="filterLocations()">
+  <div>
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty" name="difficulty" [(ngModel)]="filter.difficulty">
+      <option value="">All</option>
+      <option value="1">Easy</option>
+      <option value="2">Moderate</option>
+      <option value="3">Difficult</option>
+      <option value="4">Hard</option>
+    </select>
+  </div>
+  <div>
+    <label for="season">Season:</label>
+    <select id="season" name="season" [(ngModel)]="filter.season">
+      <option value="">All</option>
+      <option value="Any">Any</option>
+      <option value="Spring">Spring</option>
+      <option value="Summer">Summer</option>
+      <option value="Autumn">Autumn</option>
+      <option value="Winter">Winter</option>
+    </select>
+  </div>
+  <div>
+    <label for="bestTime">Best Time:</label>
+    <select id="bestTime" name="bestTime" [(ngModel)]="filter.bestTime">
+      <option value="">All</option>
+      <option value="Sunrise">Sunrise</option>
+      <option value="Sunset">Sunset</option>
+      <option value="Midday">Midday</option>
+    </select>
+  </div>
+  <div>
+    <label for="county">County:</label>
+    <select id="county" name="county" [(ngModel)]="filter.county">
+      <option value="">All</option>
+      <option value="Derbyshire">Derbyshire</option>
+      <option value="Staffordshire">Staffordshire</option>
+      <option value="Greater Manchester">Greater Manchester</option>
+      <option value="Cheshire">Cheshire</option>
+      <option value="South Yorkshire">South Yorkshire</option>
+    </select>
+  </div>
+  <button type="submit">Filter</button>
+</form>
 
-
-  <ion-row>
-    <ion-col size="12">
-      <label>Filter by Best Time of Day:</label>
-    </ion-col>
-    <ion-col size="12">
-      <select [(ngModel)]="selectedBestTime">
-        <option class="placeholder" disabled selected value="undefined">Select an Option</option>
-        <option value="All">All</option>
-        <option *ngFor="let option of bestTimeOptions" [value]="option">{{ option }}</option>
-      </select>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col size="12">
-      <label>Filter by Season: </label>
-    </ion-col>
-    <ion-col size="12">
-      <select [(ngModel)]="selectedSeason">
-        <option class="placeholder" disabled selected value="undefined">Select an Option</option>
-        <option value="All">All</option>
-        <option *ngFor="let option of seasonOptions" [value]="option">{{ option }}</option>
-      </select>
-    </ion-col>
-  </ion-row>
-
-</ion-grid>
-
-<!--<ion-menu-toggle>-->
-  <ion-button (click)="apply()">Confirm Test</ion-button>
-<!--</ion-menu-toggle>-->
-
-
-  <ion-button (click)="resetAll()">Reset All</ion-button>
-
+<!-- Display filtered locations -->
+<ul>
+  <li *ngFor="let location of filteredLocations">
+    {{ location.name }}
+  </li>
+</ul>
