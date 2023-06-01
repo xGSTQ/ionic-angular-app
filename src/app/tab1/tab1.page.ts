@@ -1,6 +1,5 @@
 import {Component, ViewChild, OnInit, EventEmitter, Output} from '@angular/core';
-import {IonContent} from '@ionic/angular';
-import {IonModal} from '@ionic/angular';
+import {IonContent, IonModal} from '@ionic/angular';
 import {OverlayEventDetail} from '@ionic/core/components';
 
 import {LocationFilterService} from '../services/location-filter.service';
@@ -26,9 +25,7 @@ export class Tab1Page implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
   @Output() notifyParent: EventEmitter<any> = new EventEmitter();
 
-  constructor(private filterService: LocationFilterService) {
-
-  }
+  constructor(private filterService: LocationFilterService) {}
 
   @ViewChild(IonContent) content: IonContent;
   locations = LOCATIONS;

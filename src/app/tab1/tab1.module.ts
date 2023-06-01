@@ -1,6 +1,6 @@
 import {IonicModule} from '@ionic/angular';
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {Tab1Page} from './tab1.page';
 import {ExploreContainerComponentModule} from '../explore-container/explore-container.module';
@@ -15,15 +15,16 @@ import {FilterModule} from '../filter/filter.module';
 
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ExploreContainerComponentModule,
-    Tab1PageRoutingModule,
-    LoadingModule,
-    FilterModule
-  ],
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        ExploreContainerComponentModule,
+        Tab1PageRoutingModule,
+        LoadingModule,
+        FilterModule,
+        NgOptimizedImage
+    ],
   declarations: [
     Tab1Page,
     SanitizeHtmlPipe,
